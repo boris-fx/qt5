@@ -1,6 +1,6 @@
 [submodule "qtbase"]
 	path = qtbase
-	url = ../../autodesk-forks/qtbase.git
+	url = ../qtbase.git
 	branch = adsk-contrib/vfx/5.6.1
 	status = essential
 [submodule "qtsvg"]
