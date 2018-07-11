@@ -238,7 +238,7 @@
 	depends = qtquickcontrols qtwebchannel
 	recommends = qtlocation
 	path = qtwebengine
-	url = ../../qt/qtwebengine.git
+	url = ../qtwebengine.git
 	branch = 5.6.1
 	status = addon
 	priority = 10
