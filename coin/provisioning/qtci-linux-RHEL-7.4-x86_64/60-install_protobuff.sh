@@ -1,8 +1,8 @@
-#!/bin/env bash
+#!/usr/bin/env bash
 
 #############################################################################
 ##
-## Copyright (C) 2017 The Qt Company Ltd.
+## Copyright (C) 2018 The Qt Company Ltd.
 ## Contact: http://www.qt.io/licensing/
 ##
 ## This file is part of the provisioning scripts of the Qt Toolkit.
@@ -33,4 +33,8 @@
 ##
 #############################################################################
 
-source "${BASH_SOURCE%/*}/../common/linux/open62541.sh"
+set -ex
+
+# shellcheck source=../common/unix/install_protobuff.sh
+source "${BASH_SOURCE%/*}/../common/unix/install_protobuff.sh"
+

@@ -35,6 +35,28 @@ function Run-Executable
     }
 }
 
+function Extract-tar_gz
+{
+    Param (
+        [string]$Source,
+        [string]$Destination
+    )
+    Write-Host "Extracting '$Source' to '$Destination'..."
+
+    if ((Get-Command "7z.exe" -ErrorAction SilentlyContinue) -eq $null) {
+        $zipExe = join-path (${env:ProgramFiles(x86)}, ${env:ProgramFiles}, ${env:ProgramW6432} -ne $null)[0] '7-zip\7z.exe'
+        if (-not (test-path $zipExe)) {
+            $zipExe = "C:\Utils\sevenzip\7z.exe"
+            if (-not (test-path $zipExe)) {
+                throw "Could not find 7-zip."
+            }
+        }
+    } else {
+        $zipExe = "7z.exe"
+    }
+    Run-Executable "cmd.exe"  "/C $zipExe x -y `"$Source`" -so | $zipExe x -y -aoa -si -ttar `"-o$Destination`""
+}
+
 function Extract-7Zip
 {
     Param (
@@ -136,4 +158,23 @@ function IsProxyEnabled {
 
 function Get-Proxy {
     return (Get-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings').proxyServer
+}
+
+function Remove {
+
+    Param (
+        [string]$Path = $(BadParam("a path"))
+    )
+    Write-Host "Removing $Path"
+    $i = 0
+    While ( Test-Path($Path) ){
+        Try{
+            remove-item -Force -Recurse -Path $Path -ErrorAction Stop
+        }catch{
+            $i +=1
+            if ($i -eq 5) {exit 1}
+            Write-Verbose "$Path locked, trying again in 5"
+            Start-Sleep -seconds 5
+        }
+    }
 }

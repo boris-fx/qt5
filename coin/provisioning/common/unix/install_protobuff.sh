@@ -1,8 +1,8 @@
-#!/bin/env bash
+#!/usr/bin/env bash
 
 #############################################################################
 ##
-## Copyright (C) 2017 The Qt Company Ltd.
+## Copyright (C) 2018 The Qt Company Ltd.
 ## Contact: http://www.qt.io/licensing/
 ##
 ## This file is part of the provisioning scripts of the Qt Toolkit.
@@ -33,5 +33,43 @@
 ##
 #############################################################################
 
-# shellcheck source=../common/linux/open62541.sh
-source "${BASH_SOURCE%/*}/../common/linux/open62541.sh"
+# shellcheck source=./DownloadURL.sh
+source "${BASH_SOURCE%/*}/DownloadURL.sh"
+# shellcheck source=./SetEnvVar.sh
+source "${BASH_SOURCE%/*}/SetEnvVar.sh"
+
+# This script will install Google's Protocal Buffers which is needed by Automotive Suite
+
+version="3.6.1"
+sha1="44b8ba225f3b4dc45fb56d5881ec6a91329802b6"
+internalUrl="http://ci-files01-hki.intra.qt.io/input/automotive_suite/protobuf-all-$version.zip"
+externalUrl="https://github.com/protocolbuffers/protobuf/releases/download/v$version/protobuf-all-$version.zip"
+
+targetDir="$HOME/protobuf-$version"
+targetFile="$targetDir.zip"
+DownloadURL "$internalUrl" "$externalUrl" "$sha1" "$targetFile"
+unzip "$targetFile" -d "$HOME"
+sudo rm "$targetFile"
+
+# devtoolset is needed when running configuration
+if uname -a |grep -qv "Darwin"; then
+    export PATH="/opt/rh/devtoolset-4/root/usr/bin:$PATH"
+fi
+
+echo "Configuring and building protobuf"
+cd "$targetDir"
+if uname -a |grep -q Darwin; then
+    ./configure --prefix "$(xcrun --sdk macosx --show-sdk-path)/usr/local"
+    SetEnvVar PATH "\$PATH:$(xcrun --sdk macosx --show-sdk-path)/usr/local/bin"
+else
+    ./configure
+fi
+make
+sudo make install
+
+# Refresh shared library cache if OS isn't macOS
+if uname -a |grep -qv "Darwin"; then
+    sudo ldconfig
+fi
+
+sudo rm -r "$targetDir"

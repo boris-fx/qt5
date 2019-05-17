@@ -1,8 +1,6 @@
-#!/bin/env bash
-
-#############################################################################
+############################################################################
 ##
-## Copyright (C) 2017 The Qt Company Ltd.
+## Copyright (C) 2019 The Qt Company Ltd.
 ## Contact: http://www.qt.io/licensing/
 ##
 ## This file is part of the provisioning scripts of the Qt Toolkit.
@@ -31,43 +29,18 @@
 ##
 ## $QT_END_LICENSE$
 ##
-#############################################################################
+############################################################################
+. "$PSScriptRoot\helpers.ps1"
 
-set +e
+# This script will install gnuwin32
 
-# shellcheck disable=SC1090
+$prog = "gnuwin32"
+$zipPackage = "$prog.zip"
+$temp = "$env:tmp"
+$internalUrl = "http://ci-files01-hki.intra.qt.io/input/windows/$prog/$zipPackage"
+$externalUrl = "http://download.qt.io/development_releases/$prog/$zipPackage"
+Download $externalUrl $internalUrl "$temp\$zipPackage"
+Verify-Checksum "$temp\$zipPackage" "d7a34a385ccde2374b8a2ca3369e5b8a1452c5a5"
+Extract-7Zip "$temp\$zipPackage" C:\Utils
 
-# We need to source to be able to use cmake in the shell
-if uname -a |grep -q "Ubuntu"; then
-    source ~/.profile
-else
-    source ~/.bashrc
-fi
-
-set -ex
-
-# shellcheck source=../unix/SetEnvVar.sh
-source "${BASH_SOURCE%/*}/../unix/SetEnvVar.sh"
-
-TEMPDIR=$(mktemp --directory) || echo "Failed to create temporary directory"
-# shellcheck disable=SC2064
-trap "sudo rm -fr $TEMPDIR" EXIT
-cd "$TEMPDIR"
-
-sudo pip install --upgrade pip
-sudo pip install six
-
-git clone https://github.com/open62541/open62541.git open62541
-cd open62541
-git checkout 215651ab8db94e5eacdd10ec26a5a9fb96b9301f
-mkdir build
-cd build
-TARGETPATH=/opt/open62541
-cmake -DUA_ENABLE_AMALGAMATION=ON -DUA_ENABLE_METHODCALLS=ON -DCMAKE_INSTALL_PREFIX:PATH="$TARGETPATH" ..
-make
-
-sudo make install
-sudo /sbin/ldconfig
-
-SetEnvVar "CI_OPEN62541_GCC_X64_PREFIX" "$TARGETPATH"
-
+Write-Output "$prog qt5 commit sha = 98c4f1bbebfb3cc6d8e031d36fd1da3c19e634fb" >> ~\versions.txt
