@@ -2,7 +2,7 @@
 
 #############################################################################
 ##
-## Copyright (C) 2017 The Qt Company Ltd.
+## Copyright (C) 2020 The Qt Company Ltd.
 ## Contact: http://www.qt.io/licensing/
 ##
 ## This file is part of the provisioning scripts of the Qt Toolkit.
@@ -35,32 +35,38 @@
 
 # This script install OpenSSL from sources.
 # Requires GCC and Perl to be in PATH.
-
+set -ex
 # shellcheck source=../unix/DownloadURL.sh
 source "${BASH_SOURCE%/*}/../unix/DownloadURL.sh"
 # shellcheck source=../unix/SetEnvVar.sh
 source "${BASH_SOURCE%/*}/../unix/SetEnvVar.sh"
 
-version="1.0.2p"
+exports_file="/tmp/export.sh"
+# source previously made environmental variables.
+if uname -a |grep -q "Ubuntu"; then
+    # shellcheck disable=SC1090
+    grep -e "^export" "$HOME/.profile" > $exports_file && source $exports_file
+    rm -rf "$exports_file"
+else
+    # shellcheck disable=SC1090
+    grep -e "^export" "$HOME/.bashrc" > $exports_file && source $exports_file
+    rm -rf "$exports_file"
+fi
+
+version="1.1.1g"
 officialUrl="https://www.openssl.org/source/openssl-$version.tar.gz"
 cachedUrl="http://ci-files01-hki.intra.qt.io/input/openssl/openssl-$version.tar.gz"
 targetFile="/tmp/openssl-$version.tar.gz"
-installFolder="/home/qt/"
-sha="f34b5322e92415755c7d58bf5d0d5cf37666382c"
-# Until every VM doing Linux Android builds have provisioned the env variable
-# OPENSSL_ANDROID_HOME, we can't change the hard coded path that's currently in Coin.
-# QTQAINFRA-1436
-opensslHome="${installFolder}openssl-1.0.2"
-
+sha="b213a293f2127ec3e323fb3cfc0c9807664fd997"
+opensslHome="${HOME}/openssl/android/openssl-${version}"
 DownloadURL "$cachedUrl" "$officialUrl" "$sha" "$targetFile"
+mkdir -p "${HOME}/openssl/android/"
+tar -xzf "$targetFile" -C "${HOME}/openssl/android/"
 
-tar -xzf "$targetFile" -C "$installFolder"
-# This rename should be removed once hard coded path from Coin is fixed. (QTQAINFRA-1436)
-mv "${opensslHome}p" "${opensslHome}"
-pushd "$opensslHome"
-
-echo "Running configure"
-perl Configure shared android
+TOOLCHAIN=${ANDROID_NDK_HOME}/toolchains/llvm/prebuilt/linux-x86_64/bin
+cd "$opensslHome"
+PATH=$TOOLCHAIN:$PATH CC=clang ./Configure android-arm
+PATH=$TOOLCHAIN:$PATH CC=clang make build_generated
 
 SetEnvVar "OPENSSL_ANDROID_HOME" "$opensslHome"
 

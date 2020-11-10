@@ -46,12 +46,15 @@ for service in apt-daily.timer apt-daily-upgrade.timer apt-daily.service apt-dai
 done
 
 function set_internal_repo {
+
+    # Stop fetching the dep-11 metadata, since our mirrors do not handle them well
+    sudo mv /etc/apt/apt.conf.d/50appstream{,.disabled}
+
     sudo tee "/etc/apt/sources.list" > /dev/null <<-EOC
-    deb [arch=amd64] http://repo-clones.ci.qt.io/apt-mirror/mirror/ubuntu.trumpetti.atm.tut.fi/ubuntu/ bionic main restricted universe multiverse
-    deb [arch=amd64] http://repo-clones.ci.qt.io/apt-mirror/mirror/ubuntu.trumpetti.atm.tut.fi/ubuntu/ bionic main restricted universe multiverse
-    deb [arch=amd64] http://repo-clones.ci.qt.io/apt-mirror/mirror/ubuntu.trumpetti.atm.tut.fi/ubuntu/ bionic-updates main restricted universe multiverse
-    deb [arch=amd64] http://repo-clones.ci.qt.io/apt-mirror/mirror/ubuntu.trumpetti.atm.tut.fi/ubuntu/ bionic-backports main restricted universe
-    deb [arch=amd64] http://repo-clones.ci.qt.io/apt-mirror/mirror/ubuntu.trumpetti.atm.tut.fi/ubuntu/ bionic-security main restricted universe multiverse
+    deb [arch=amd64] http://repo-clones.ci.qt.io/apt-mirror/mirror/ubuntu/ bionic main restricted universe multiverse
+    deb [arch=amd64] http://repo-clones.ci.qt.io/apt-mirror/mirror/ubuntu/ bionic-updates main restricted universe multiverse
+    deb [arch=amd64] http://repo-clones.ci.qt.io/apt-mirror/mirror/ubuntu/ bionic-backports main restricted universe
+    deb [arch=amd64] http://repo-clones.ci.qt.io/apt-mirror/mirror/ubuntu/ bionic-security main restricted universe multiverse
 EOC
 }
 
@@ -81,6 +84,9 @@ installPackages+=(libudev-dev)
 installPackages+=(libegl1-mesa-dev)
 installPackages+=(libfontconfig1-dev)
 installPackages+=(libxss-dev)
+installPackages+=(nodejs)
+# NOTE! Can't install nodejs-dev because libssl1.0-dev conflicts with libssl1.0-dev which is depandency of nodejs-dev.
+
 # Common event loop handling
 installPackages+=(libglib2.0-dev)
 # MySQL support
@@ -97,6 +103,8 @@ installPackages+=(libfreetype6-dev)
 installPackages+=(libjpeg-dev)
 # Enable support for printer driver
 installPackages+=(libcups2-dev)
+# Enable support for printer test
+installPackages+=(cups-pdf)
 # Install libraries needed for QtMultimedia to be able to support all plugins
 installPackages+=(libasound2-dev)
 installPackages+=(libgstreamer1.0-dev)
@@ -108,7 +116,7 @@ installPackages+=(g++-multilib)
 # python3 development package
 installPackages+=(python3-dev)
 installPackages+=(python3-pip)
-installPackages+=(python3-virtualenv)
+installPackages+=(virtualenv)
 installPackages+=(python3-wheel)
 # python2 development package
 installPackages+=(python-dev)
@@ -159,6 +167,18 @@ installPackages+=(dkms)
 installPackages+=(libspeechd-dev)
 #Pypdf for PDF reading in RTA tests
 installPackages+=(python-pypdf2)
+# Needed for b2qt
+installPackages+=(git-lfs)
+installPackages+=(chrpath)
+installPackages+=(gawk)
+installPackages+=(texinfo)
+# Needed for Poppler test in QtWebEngine
+installPackages+=(libpoppler-cpp-dev)
+# Needed for qtwebkit
+installPackages+=(ruby)
+installPackages+=(libxslt1-dev)
+installPackages+=(libxml2-dev)
+installPackages+=(libhyphen-dev)
 
 echo "Running update for apt"
 waitLoop
@@ -168,7 +188,7 @@ waitLoop
 sudo DEBIAN_FRONTEND=noninteractive apt-get -q -y install "${installPackages[@]}"
 
 # Install all needed packages in a special wheel cache directory
-pip3 wheel --wheel-dir $HOME/python3-wheels -r ${BASH_SOURCE%/*}/../common/shared/requirements.txt
+pip3 wheel --wheel-dir "$HOME/python3-wheels" -r "${BASH_SOURCE%/*}/../common/shared/requirements.txt"
 
 source "${BASH_SOURCE%/*}/../common/unix/SetEnvVar.sh"
 SetEnvVar "PYTHON3_WHEEL_CACHE" "$HOME/python3-wheels"

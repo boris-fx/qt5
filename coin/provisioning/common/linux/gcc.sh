@@ -37,6 +37,8 @@
 
 # shellcheck source=../unix/DownloadURL.sh
 source "${BASH_SOURCE%/*}/../unix/DownloadURL.sh"
+# shellcheck source=../unix/SetEnvVar.sh
+source "${BASH_SOURCE%/*}/../unix/SetEnvVar.sh"
 
 set -ex
 
@@ -81,22 +83,25 @@ function InstallGCC() {
         sudo make install
 
         rm -rf "$targetFile"
-        rm -rf "$tmpFolder/gcc-$version"
+        sudo rm -rf "$tmpFolder/gcc-$version"
     fi
 
     # openSUSE has update-alternatives under /usr/sbin and it has grouped the commands by means of master and slave links
     if [ -f "/usr/sbin/update-alternatives" ]; then
-        sudo /usr/sbin/update-alternatives --install /usr/bin/gcc gcc "$installPrefix/bin/gcc-$suffixVersion" "$priority" \
-                                           --slave /usr/bin/g++ g++ "$installPrefix/bin/g++-$suffixVersion" \
-                                           --slave /usr/bin/cc cc "$installPrefix/bin/gcc-$suffixVersion" \
-                                           --slave /usr/bin/c++ c++ "$installPrefix/bin/g++-$suffixVersion"
+        sudo /usr/sbin/update-alternatives --install /usr/bin/gcc gcc "$installPrefix/bin/gcc${suffixVersion}" "$priority" \
+                                           --slave /usr/bin/g++ g++ "$installPrefix/bin/g++${suffixVersion}" \
+                                           --slave /usr/bin/cc cc "$installPrefix/bin/gcc${suffixVersion}" \
+                                           --slave /usr/bin/c++ c++ "$installPrefix/bin/g++${suffixVersion}"
     else
-        sudo /usr/bin/update-alternatives --install /usr/bin/gcc gcc "$installPrefix/bin/gcc-$suffixVersion" "$priority"
-        sudo /usr/bin/update-alternatives --install /usr/bin/g++ g++ "$installPrefix/bin/g++-$suffixVersion" "$priority"
-        sudo /usr/bin/update-alternatives --install /usr/bin/cc cc "$installPrefix/bin/gcc-$suffixVersion" "$priority"
-        sudo /usr/bin/update-alternatives --install /usr/bin/c++ c++ "$installPrefix/bin/g++-$suffixVersion" "$priority"
+        sudo /usr/bin/update-alternatives --install /usr/bin/gcc gcc "$installPrefix/bin/gcc${suffixVersion}" "$priority"
+        sudo /usr/bin/update-alternatives --install /usr/bin/g++ g++ "$installPrefix/bin/g++${suffixVersion}" "$priority"
+        sudo /usr/bin/update-alternatives --install /usr/bin/cc cc "$installPrefix/bin/gcc${suffixVersion}" "$priority"
+        sudo /usr/bin/update-alternatives --install /usr/bin/c++ c++ "$installPrefix/bin/g++${suffixVersion}" "$priority"
     fi
 
+    echo "/usr/local/lib64" | sudo tee /etc/ld.so.conf.d/gcc-libraries.conf
+    echo "/usr/local/lib32" | sudo tee -a /etc/ld.so.conf.d/gcc-libraries.conf
+    sudo ldconfig -v
 
     echo "GCC = $version" >> ~/versions.txt
 }
