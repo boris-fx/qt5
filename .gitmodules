@@ -6,54 +6,54 @@
 [submodule "qtsvg"]
 	depends = qtbase
 	path = qtsvg
-	url = ../../qt/qtsvg.git
+	url = git://code.qt.io/qt/qtsvg.git
 	branch = 5.15.1
 	status = addon
 [submodule "qtdeclarative"]
 	depends = qtbase
 	recommends = qtsvg
 	path = qtdeclarative
-	url = ../../qt/qtdeclarative.git
+	url = git://code.qt.io/qt/qtdeclarative.git
 	branch = 5.15.1
 	status = essential
 [submodule "qtactiveqt"]
 	depends = qtbase
 	path = qtactiveqt
-	url = ../../qt/qtactiveqt.git
+	url = git://code.qt.io/qt/qtactiveqt.git
 	branch = 5.15.1
 	status = addon
 [submodule "qtscript"]
 	depends = qtbase
 	recommends = qttools
 	path = qtscript
-	url = ../../qt/qtscript.git
+	url = git://code.qt.io/qt/qtscript.git
 	branch = 5.15.1
 	status = deprecated
 [submodule "qtmultimedia"]
 	depends = qtbase
 	recommends = qtdeclarative
 	path = qtmultimedia
-	url = ../../qt/qtmultimedia.git
+	url = git://code.qt.io/qt/qtmultimedia.git
 	branch = 5.15.1
 	status = essential
 [submodule "qttools"]
 	depends = qtbase
 	recommends = qtdeclarative qtactiveqt
 	path = qttools
-	url = ../../qt/qttools.git
+	url = git://code.qt.io/qt/qttools.git
 	branch = 5.15.1
 	status = essential
 [submodule "qtxmlpatterns"]
 	depends = qtbase
 	recommends = qtdeclarative
 	path = qtxmlpatterns
-	url = ../../qt/qtxmlpatterns.git
+	url = git://code.qt.io/qt/qtxmlpatterns.git
 	branch = 5.15.1
 	status = deprecated
 [submodule "qttranslations"]
 	depends = qttools
 	path = qttranslations
-	url = ../../qt/qttranslations.git
+	url = git://code.qt.io/qt/qttranslations.git
 	branch = 5.15.1
 	status = essential
 	priority = 30
@@ -61,20 +61,20 @@
 	depends = qtdeclarative qttools
 	recommends = qtmultimedia qtquickcontrols qtquickcontrols2
 	path = qtdoc
-	url = ../../qt/qtdoc.git
+	url = git://code.qt.io/qt/qtdoc.git
 	branch = 5.15.1
 	status = essential
 	priority = 40
 [submodule "qtrepotools"]
 	path = qtrepotools
-	url = ../../qt/qtrepotools.git
+	url = git://code.qt.io/qt/qtrepotools.git
 	branch = master
 	status = essential
 	project = -
 [submodule "qtqa"]
 	depends = qtbase
 	path = qtqa
-	url = ../../qt/qtqa.git
+	url = git://code.qt.io/qt/qtqa.git
 	branch = master
 	status = essential
 	priority = 50
@@ -82,245 +82,245 @@
 	depends = qtbase
 	recommends = qtdeclarative qtquickcontrols qtquickcontrols2 qtserialport
 	path = qtlocation
-	url = ../../qt/qtlocation.git
+	url = git://code.qt.io/qt/qtlocation.git
 	branch = 5.15.1
 	status = addon
 [submodule "qtsensors"]
 	depends = qtbase
 	recommends = qtdeclarative
 	path = qtsensors
-	url = ../../qt/qtsensors.git
+	url = git://code.qt.io/qt/qtsensors.git
 	branch = 5.15.1
 	status = addon
 [submodule "qtsystems"]
 	depends = qtbase
 	recommends = qtdeclarative
 	path = qtsystems
-	url = ../../qt/qtsystems.git
+	url = git://code.qt.io/qt/qtsystems.git
 	branch = dev
 	status = ignore
 [submodule "qtfeedback"]
 	depends = qtdeclarative
 	recommends = qtmultimedia
 	path = qtfeedback
-	url = ../../qt/qtfeedback.git
+	url = git://code.qt.io/qt/qtfeedback.git
 	branch = master
 	status = ignore
 [submodule "qtdocgallery"]
 	depends = qtdeclarative
 	path = qtdocgallery
-	url = ../../qt/qtdocgallery.git
+	url = git://code.qt.io/qt/qtdocgallery.git
 	branch = master
 	status = ignore
 [submodule "qtpim"]
 	depends = qtdeclarative
 	path = qtpim
-	url = ../../qt/qtpim.git
+	url = git://code.qt.io/qt/qtpim.git
 	branch = dev
 	status = ignore
 [submodule "qtconnectivity"]
 	depends = qtbase
 	recommends = qtdeclarative qtandroidextras
 	path = qtconnectivity
-	url = ../../qt/qtconnectivity.git
+	url = git://code.qt.io/qt/qtconnectivity.git
 	branch = 5.15.1
 	status = addon
 [submodule "qtwayland"]
 	depends = qtbase
 	recommends = qtdeclarative
 	path = qtwayland
-	url = ../../qt/qtwayland.git
+	url = git://code.qt.io/qt/qtwayland.git
 	branch = 5.15.1
 	status = addon
 [submodule "qt3d"]
 	depends = qtbase
 	recommends = qtdeclarative qtimageformats qtgamepad
 	path = qt3d
-	url = ../../qt/qt3d.git
+	url = git://code.qt.io/qt/qt3d.git
 	branch = 5.15.1
 	status = addon
 [submodule "qtimageformats"]
 	depends = qtbase
 	path = qtimageformats
-	url = ../../qt/qtimageformats.git
+	url = git://code.qt.io/qt/qtimageformats.git
 	branch = 5.15.1
 	status = addon
 [submodule "qtgraphicaleffects"]
 	depends = qtdeclarative
 	path = qtgraphicaleffects
-	url = ../../qt/qtgraphicaleffects.git
+	url = git://code.qt.io/qt/qtgraphicaleffects.git
 	branch = 5.15.1
 	status = essential
 [submodule "qtquickcontrols"]
 	depends = qtdeclarative
 	recommends = qtgraphicaleffects
 	path = qtquickcontrols
-	url = ../../qt/qtquickcontrols.git
+	url = git://code.qt.io/qt/qtquickcontrols.git
 	branch = 5.15.1
 	status = addon
 [submodule "qtserialbus"]
 	depends = qtbase
 	recommends = qtserialport
 	path = qtserialbus
-	url = ../../qt/qtserialbus.git
+	url = git://code.qt.io/qt/qtserialbus.git
 	branch = 5.15.1
 	status = addon
 [submodule "qtserialport"]
 	depends = qtbase
 	path = qtserialport
-	url = ../../qt/qtserialport.git
+	url = git://code.qt.io/qt/qtserialport.git
 	branch = 5.15.1
 	status = addon
 [submodule "qtx11extras"]
 	depends = qtbase
 	path = qtx11extras
-	url = ../../qt/qtx11extras.git
+	url = git://code.qt.io/qt/qtx11extras.git
 	branch = 5.15.1
 	status = addon
 [submodule "qtmacextras"]
 	depends = qtbase
 	path = qtmacextras
-	url = ../../qt/qtmacextras.git
+	url = git://code.qt.io/qt/qtmacextras.git
 	branch = 5.15.1
 	status = addon
 [submodule "qtwinextras"]
 	depends = qtbase
 	recommends = qtdeclarative qtmultimedia
 	path = qtwinextras
-	url = ../../qt/qtwinextras.git
+	url = git://code.qt.io/qt/qtwinextras.git
 	branch = 5.15.1
 	status = addon
 [submodule "qtandroidextras"]
 	depends = qtbase
 	path = qtandroidextras
-	url = ../../qt/qtandroidextras.git
+	url = git://code.qt.io/qt/qtandroidextras.git
 	branch = 5.15.1
 	status = addon
 [submodule "qtwebsockets"]
 	depends = qtbase
 	recommends = qtdeclarative
 	path = qtwebsockets
-	url = ../../qt/qtwebsockets.git
+	url = git://code.qt.io/qt/qtwebsockets.git
 	branch = 5.15.1
 	status = addon
 [submodule "qtwebchannel"]
 	depends = qtbase
 	recommends = qtdeclarative qtwebsockets
 	path = qtwebchannel
-	url = ../../qt/qtwebchannel.git
+	url = git://code.qt.io/qt/qtwebchannel.git
 	branch = 5.15.1
 	status = addon
 [submodule "qtwebengine"]
 	depends = qtdeclarative
 	recommends = qtquickcontrols qtquickcontrols2 qtlocation qtwebchannel qttools
 	path = qtwebengine
-	url = ../../qt/qtwebengine.git
+	url = git://code.qt.io/qt/qtwebengine.git
 	branch = 5.15.1
 	status = addon
 	priority = 10
 [submodule "qtcanvas3d"]
 	depends = qtdeclarative
 	path = qtcanvas3d
-	url = ../../qt/qtcanvas3d.git
+	url = git://code.qt.io/qt/qtcanvas3d.git
 	branch = dev
 	status = ignore
 [submodule "qtwebview"]
 	depends = qtdeclarative
 	recommends = qtwebengine
 	path = qtwebview
-	url = ../../qt/qtwebview.git
+	url = git://code.qt.io/qt/qtwebview.git
 	branch = 5.15.1
 	status = addon
 [submodule "qtquickcontrols2"]
 	depends = qtgraphicaleffects
 	recommends = qtimageformats
 	path = qtquickcontrols2
-	url = ../../qt/qtquickcontrols2.git
+	url = git://code.qt.io/qt/qtquickcontrols2.git
 	branch = 5.15.1
 	status = essential
 [submodule "qtpurchasing"]
 	depends = qtbase
 	recommends = qtdeclarative qtandroidextras
 	path = qtpurchasing
-	url = ../../qt/qtpurchasing.git
+	url = git://code.qt.io/qt/qtpurchasing.git
 	branch = 5.15.1
 	status = addon
 [submodule "qtcharts"]
 	depends = qtbase
 	recommends = qtdeclarative qtmultimedia
 	path = qtcharts
-	url = ../../qt/qtcharts.git
+	url = git://code.qt.io/qt/qtcharts.git
 	branch = 5.15.1
 	status = addon
 [submodule "qtdatavis3d"]
 	depends = qtbase
 	recommends = qtdeclarative qtmultimedia
 	path = qtdatavis3d
-	url = ../../qt/qtdatavis3d.git
+	url = git://code.qt.io/qt/qtdatavis3d.git
 	branch = 5.15.1
 	status = addon
 [submodule "qtvirtualkeyboard"]
 	depends = qtbase qtdeclarative qtsvg
 	recommends = qtmultimedia qtquickcontrols
 	path = qtvirtualkeyboard
-	url = ../../qt/qtvirtualkeyboard.git
+	url = git://code.qt.io/qt/qtvirtualkeyboard.git
 	branch = 5.15.1
 	status = addon
 [submodule "qtgamepad"]
 	depends = qtbase
 	recommends = qtdeclarative
 	path = qtgamepad
-	url = ../../qt/qtgamepad.git
+	url = git://code.qt.io/qt/qtgamepad.git
 	branch = 5.15.1
 	status = addon
 [submodule "qtscxml"]
 	depends = qtbase qtdeclarative
 	path = qtscxml
-	url = ../../qt/qtscxml.git
+	url = git://code.qt.io/qt/qtscxml.git
 	branch = 5.15.1
 	status = addon
 [submodule "qtspeech"]
 	depends = qtbase
 	recommends = qtdeclarative qtmultimedia
 	path = qtspeech
-	url = ../../qt/qtspeech.git
+	url = git://code.qt.io/qt/qtspeech.git
 	branch = 5.15.1
 	status = addon
 [submodule "qtnetworkauth"]
 	depends = qtbase
 	path = qtnetworkauth
-	url = ../../qt/qtnetworkauth.git
+	url = git://code.qt.io/qt/qtnetworkauth.git
 	branch = 5.15.1
 	status = addon
 [submodule "qtremoteobjects"]
 	depends = qtbase
 	recommends = qtdeclarative
 	path = qtremoteobjects
-	url = ../../qt/qtremoteobjects.git
+	url = git://code.qt.io/qt/qtremoteobjects.git
 	branch = 5.15.1
 	status = addon
 [submodule "qtwebglplugin"]
 	depends = qtbase qtwebsockets
 	recommends = qtdeclarative
 	path = qtwebglplugin
-	url = ../../qt/qtwebglplugin.git
+	url = git://code.qt.io/qt/qtwebglplugin.git
 	branch = 5.15.1
 	status = addon
 [submodule "qtlottie"]
 	depends = qtbase qtdeclarative
 	path = qtlottie
-	url = ../../qt/qtlottie.git
+	url = git://code.qt.io/qt/qtlottie.git
 	branch = 5.15.1
 	status = addon
 [submodule "qtquicktimeline"]
 	depends = qtbase qtdeclarative
 	path = qtquicktimeline
-	url = ../../qt/qtquicktimeline
+	url = git://code.qt.io/qt/qtquicktimeline.git
 	branch = 5.15.1
 	status = addon
 [submodule "qtquick3d"]
 	depends = qtbase qtdeclarative
 	path = qtquick3d
-	url = ../../qt/qtquick3d.git
+	url = git://code.qt.io/qt/qtquick3d.git
 	branch = 5.15.1
 	status = addon
