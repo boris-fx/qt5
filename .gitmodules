@@ -1,7 +1,7 @@
 [submodule "qtbase"]
 	path = qtbase
 	url = ../qtbase.git
-	branch = bfx/5.15.4
+	branch = bfx/5.15.9
 	status = essential
 [submodule "qtsvg"]
 	depends = qtbase
