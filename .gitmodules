@@ -264,8 +264,8 @@
 	depends = qtbase qtdeclarative qtshadertools
 	recommends = qtquicktimeline
 	path = qtquick3d
-	url = git://code.qt.io/qt/qtquick3d.git
-	branch = 6.5
+	url = ../qtquick3d.git
+	branch = bfx/6.5.4
 	status = addon
 [submodule "qtshadertools"]
 	depends = qtbase
