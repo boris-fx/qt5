@@ -33,8 +33,8 @@
 	depends = qtbase
 	recommends = qtdeclarative qtactiveqt
 	path = qttools
-	url = git://code.qt.io/qt/qttools.git
-	branch = 6.5
+	url = ../qttools
+	branch = bfx/6.5.4
 	status = essential
 [submodule "qtxmlpatterns"]
 	depends = qtbase
